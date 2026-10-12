@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Si Te Dejas Llevar",
+    "artist": "Ozuna",
+    "type": "INTT",
+    "bpm": "92",
+    "len": "2:06",
+    "enc": "previews/01-si-te-dejas-llevar.txt"
+  },
+  {
+    "title": "Dígame Usted",
+    "artist": "Kale",
+    "type": "Splice",
+    "bpm": "96",
+    "len": "2:26",
+    "enc": "previews/02-digame-usted.txt"
+  },
+  {
+    "title": "Tienes",
+    "artist": "JP El Chamaco",
+    "type": "Baja Break",
+    "bpm": "130-115",
+    "len": "1:46",
+    "enc": "previews/03-tienes.txt"
+  },
+  {
+    "title": "La Calabaza x Loba",
+    "artist": "",
+    "type": "Mashup Guaracha TT",
+    "bpm": "130",
+    "len": "1:34",
+    "enc": "previews/04-la-calabaza-x-loba.txt"
+  }
+]
