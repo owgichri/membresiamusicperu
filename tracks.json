@@ -8,20 +8,36 @@
     "enc": "previews/01-si-te-dejas-llevar.txt"
   },
   {
+    "title": "Qué Pasó",
+    "artist": "La Bella Luz",
+    "type": "IN Reparto",
+    "bpm": "111",
+    "len": "2:59",
+    "enc": "previews/02-que-paso.txt"
+  },
+  {
     "title": "Dígame Usted",
     "artist": "Kale",
     "type": "Splice",
     "bpm": "96",
     "len": "2:26",
-    "enc": "previews/02-digame-usted.txt"
+    "enc": "previews/03-digame-usted.txt"
   },
   {
-    "title": "Tienes",
-    "artist": "JP El Chamaco",
-    "type": "Baja Break",
-    "bpm": "130-115",
-    "len": "1:46",
-    "enc": "previews/03-tienes.txt"
+    "title": "Porque Un Hombre No Llora",
+    "artist": "Esaud Suárez",
+    "type": "Coro Acapella",
+    "bpm": "133",
+    "len": "2:53",
+    "enc": "previews/04-esaud-suarez-porque-un-hombre-no-llora.txt"
+  },
+  {
+    "title": "La Noche",
+    "artist": "Darío Álvarez y El Team Havana",
+    "type": "IN Up Acapella",
+    "bpm": "98-115",
+    "len": "3:41",
+    "enc": "previews/05-dario-alvarez-y-el-team-havana-la-noche.txt"
   },
   {
     "title": "La Calabaza x Loba",
@@ -29,6 +45,38 @@
     "type": "Mashup Guaracha TT",
     "bpm": "130",
     "len": "1:34",
-    "enc": "previews/04-la-calabaza-x-loba.txt"
+    "enc": "previews/06-la-calabaza-x-loba.txt"
+  },
+  {
+    "title": "Matadora",
+    "artist": "Karol G",
+    "type": "Open Halloween 2026",
+    "bpm": "95",
+    "len": "3:09",
+    "enc": "previews/07-karol-g-matadora-open-halloween-2026.txt"
+  },
+  {
+    "title": "4K vs Bby Wow",
+    "artist": "El Alfa vs Karol G x Rusowsky",
+    "type": "Dembow Open Show",
+    "bpm": "120",
+    "len": "4:59",
+    "enc": "previews/08-4k-vs-bby-wow.txt"
+  },
+  {
+    "title": "Mujeres Solteras x Concierto",
+    "artist": "Bad Bunny",
+    "type": "Remix",
+    "bpm": "125",
+    "len": "4:34",
+    "enc": "previews/09-mujeres-solteras-concierto-culo-remix-ba.txt"
+  },
+  {
+    "title": "El Teléfono",
+    "artist": "Wisin y Yandel x Héctor El Father",
+    "type": "Open Show Halloween 2K26",
+    "bpm": "90",
+    "len": "4:16",
+    "enc": "previews/10-wisin-y-yandel-x-hector-el-father-el-tel.txt"
   }
 ]
