@@ -7,29 +7,36 @@ Cada vez que cambias esos archivos en GitHub, Vercel publica la página actualiz
 
 1. Abre `herramientas/preparar_top10.pyw` con doble clic.
 2. Elige tu marca de voz (solo la primera vez; el programa la recuerda).
-3. **Agregar:** "Agregar canciones…" y elige los m4a originales (sin marca).
+3. **Agregar:** "Agregar canciones…" y elige los audios originales sin marca: **M4A, MP3, WAV, AIF/AIFF o FLAC**.
    **Quitar:** selecciónala y "Quitar seleccionada".
    **Ordenar:** "Subir" / "Bajar". El orden de la lista es el puesto en el Top (máximo 10).
-4. Presiona **Procesar**. Se crea una carpeta con:
+4. **Revisa los datos:** haz clic en cada canción de la tabla y corrige título, artista, tipo o BPM en el recuadro
+   de abajo; presiona **Aplicar cambios**. Así se verán en la página (no pongas el nombre del editor).
+5. **Duración de la vista previa:** 90 segundos recomendado (cada archivo queda en ~5 MB y se puede subir desde la web).
+   Pon 0 solo si quieres la canción completa.
+6. Presiona **Procesar**. Se crea una carpeta con:
    - `previews/` — las canciones con marca de agua y cifradas
    - `tracks.json` — la lista (título, artista, tipo, BPM, duración)
    - `escuchar/` — copia escuchable solo para ti. **No la subas.**
 
 > Procesa siempre el Top completo (también las canciones que se quedan), así la lista y los audios coinciden.
 
-El programa lee los datos del nombre del archivo, por ejemplo:
+El programa intenta leer los datos del nombre del archivo (luego puedes corregirlos en la tabla), por ejemplo:
 `92 Te Busco (Cosculluela, Nicky Jam).Splice2026 [Gustavo 2026].m4a`
 → BPM 92 · Te Busco · Cosculluela, Nicky Jam · Splice. El editor entre corchetes no se muestra en la página.
 
 ## 2. Súbelo a GitHub (desde el navegador)
 
 1. Entra a https://github.com/owgichri/membresiamusicperu
-2. Abre la carpeta `previews`, selecciona los archivos viejos que ya no van y bórralos (botón ⋯ › Delete file),
-   o simplemente sube los nuevos encima (mismo nombre = se reemplaza).
+2. Desactiva la traducción automática de Chrome en GitHub (para ver los nombres reales de los archivos).
 3. En la página principal del repositorio: **Add file › Upload files**.
-4. Arrastra la carpeta `previews` y el archivo `tracks.json` que generó el programa.
+4. Arrastra la **carpeta** `previews` completa (no los archivos sueltos) y el archivo `tracks.json`.
+   En la lista de carga deben aparecer como `previews/01-....txt`. Si aparecen sin `previews/`, cancela y vuelve a arrastrar la carpeta.
 5. Abajo escribe un mensaje (ej. "Top 10 noviembre") y presiona **Commit changes**.
 6. Espera 1–2 minutos y recarga tu página.
+
+> Si el programa avisa que algún archivo pasa los 25 MB, baja la duración de la vista previa
+> o envía los archivos a Claude para que los suba.
 
 ## Cambiar flyers o precios
 
