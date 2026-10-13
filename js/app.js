@@ -18,7 +18,34 @@ class Component extends DCLogic {
     try { window.dispatchEvent(new CustomEvent('djmp-consent', { detail: rec })); } catch (e) {}
     this.setState({ ckAna: !!ana, ckAds: !!ads, ckBanner: false, ckCfg: false, ckPolicy: false });
   }
+  // Precarga del Top 10 en segundo plano: uno por uno, sin frenar la página.
+  // Los 2 primeros quedan listos para sonar al instante; el resto queda guardado en la caché del navegador.
+  startPreload() {
+    if (this.preloadStarted) return;
+    var list = this.trackData(), self = this, idx = [];
+    list.forEach(function (t, i) { if (t.enc) idx.push(i); });
+    if (!idx.length) return;
+    this.preloadStarted = true;
+    this.warm = this.warm || {};
+    var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    var lite = !!(c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || '')));
+    if (lite) idx = idx.slice(0, 2);   // datos limitados: solo los 2 primeros
+    var k = 0;
+    var mark = function (i) { self.warm[i] = true; self.setState({ warmCount: Object.keys(self.warm).length }); };
+    var next = function () {
+      if (k >= idx.length) return;
+      var i = idx[k++], t = list[i];
+      var job = (k <= 2) ? self.decrypt(i)
+        : fetch(t.enc, { cache: 'force-cache' }).then(function (r) { if (!r.ok) throw new Error('red'); return r.arrayBuffer(); });
+      job.then(function () { mark(i); }).catch(function () {}).then(function () { setTimeout(next, 150); });
+    };
+    next();
+  }
   componentDidMount() {
+    var selfP = this;
+    var go = function () { selfP.startPreload(); };
+    if (document.readyState === 'complete') setTimeout(go, 1200);
+    else window.addEventListener('load', function () { setTimeout(go, 1200); }, { once: true });
     var selfS = this;
     if (this.hmEl && typeof IntersectionObserver !== 'undefined') {
       this.hmIo = new IntersectionObserver(function (en) { selfS.setState({ stick: !en[0].isIntersecting }); }, { threshold: 0 });
@@ -81,6 +108,8 @@ class Component extends DCLogic {
     }).then(function (buf) {
       var url = URL.createObjectURL(new Blob([buf], { type: 'audio/mp4' }));
       self.cache[i] = url;
+      self.warm = self.warm || {};
+      if (!self.warm[i]) { self.warm[i] = true; self.setState({ warmCount: Object.keys(self.warm).length }); }
       return url;
     });
     this.cache[i] = pr;
@@ -333,6 +362,8 @@ class Component extends DCLogic {
       onPromoLeave: function () { if (self.promoEl) self.promoEl.style.transform = ''; },
       setAudio: function (el) { self.audio = el; if (el) { el.volume = s.vol; el.muted = s.muted; } },
       tracks: tracks, trackCount: n, readyCount: ready.length,
+      warmLabel: (function () { var w = Math.min(s.warmCount || 0, ready.length); return !ready.length ? '' : (w >= ready.length ? 'Listos para escuchar' : (w ? 'Preparando ' + w + ' de ' + ready.length : ready.length + ' con vista previa')); })(),
+      warmDone: (s.warmCount || 0) >= ready.length && ready.length > 0,
       track: { title: tr.full, editor: 'Edición exclusiva DJ Music Perú', type: tr.type, plan: tr.bpm ? tr.bpm + ' BPM' : '', planStyle: tr.bpm ? 'font-size: 11px; font-weight: 600; border-radius: 999px; padding: 3px 9px; background: #191b30; color: #ffffff;' : 'display: none' },
       playing: s.playing && !s.loading, paused: !s.playing && !s.loading, loadingAudio: !!s.loading, playLabel: s.loading ? 'Cargando' : (s.playing ? 'Pausar' : 'Reproducir'),
       statusLabel: s.loading ? 'Cargando…' : (s.playing ? 'Sonando ahora' : 'Vista previa'),
