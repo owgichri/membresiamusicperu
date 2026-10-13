@@ -384,7 +384,7 @@ class Component extends DCLogic {
       onMeta: function (e) { if (self.silent) return; if (isFinite(e.target.duration)) self.setState({ dur: e.target.duration }); },
       onPlay: function () { if (self.silent) return; self.setState({ playing: true }); },
       onPause: function () { if (self.silent) return; self.setState({ playing: false }); },
-      onEnded: function () { if (self.silent) return; if (s.repeat && self.audio) { self.audio.currentTime = 0; self.playNow(); } else { self.goTo(nextIdx(), true); } }
+      onEnded: function () { if (self.silent) return; if (s.repeat && self.audio) { self.audio.currentTime = 0; self.playNow(); } else { if (self.audio) self.audio.currentTime = 0; self.setState({ playing: false, time: 0 }); } }
     };
     return Object.assign(playerVals, {
       name: s.name,
