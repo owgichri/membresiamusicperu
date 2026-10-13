@@ -13,7 +13,7 @@ Requisitos (una sola vez):
 
 Se abre con doble clic (extensión .pyw, no muestra la ventana negra).
 """
-import base64, json, os, re, shutil, subprocess, threading, traceback
+import base64, json, os, re, shutil, subprocess, sys, threading, traceback
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
@@ -201,15 +201,54 @@ class App(tk.Tk):
 
     # ---- requisitos y selección de archivos ----
     def revisar_requisitos(self):
-        faltan = []
         if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
-            faltan.append("• ffmpeg: abre una terminal y escribe  winget install ffmpeg  (luego reinicia el PC)")
+            messagebox.showwarning("Falta instalar ffmpeg",
+                                   "Para procesar necesitas ffmpeg.\n\nAbre una terminal (cmd), escribe:\n\n    winget install ffmpeg\n\ny luego reinicia el PC.")
         try:
             import cryptography  # noqa
         except ImportError:
-            faltan.append("• cryptography: abre una terminal y escribe  pip install cryptography")
-        if faltan:
-            messagebox.showwarning("Falta instalar", "Para procesar necesitas:\n\n" + "\n".join(faltan))
+            if messagebox.askyesno("Instalar componente",
+                                   "Falta un componente para cifrar los audios (cryptography).\n\n"
+                                   "¿Lo instalo ahora automáticamente? Solo se hace una vez y necesita internet."):
+                self.estado.config(text="Instalando componente de cifrado… (puede tardar un minuto)")
+                self.boton.config(state="disabled")
+                threading.Thread(target=self.instalar_cryptography, daemon=True).start()
+
+    def instalar_cryptography(self):
+        # Usa el mismo Python que abrió este programa (evita instalarlo en otra versión de Python).
+        py = Path(sys.executable)
+        if py.name.lower() == "pythonw.exe" and (py.parent / "python.exe").exists():
+            py = py.parent / "python.exe"
+        r = subprocess.run([str(py), "-m", "pip", "install", "--user", "cryptography"],
+                           capture_output=True, text=True, creationflags=NO_VENTANA)
+        if r.returncode != 0:  # algunos Python no aceptan --user
+            r = subprocess.run([str(py), "-m", "pip", "install", "cryptography"],
+                               capture_output=True, text=True, creationflags=NO_VENTANA)
+        ok = r.returncode == 0
+        if ok:
+            import importlib, site
+            try:
+                usr = site.getusersitepackages()
+                if usr not in sys.path: sys.path.append(usr)
+            except Exception:
+                pass
+            importlib.invalidate_caches()
+            try:
+                import cryptography  # noqa
+            except ImportError:
+                ok = False
+        def fin():
+            self.boton.config(state="normal")
+            if ok:
+                self.estado.config(text="Componente instalado. Ya puedes procesar canciones.")
+                messagebox.showinfo("Listo", "Componente instalado. Este aviso ya no volverá a aparecer.")
+            else:
+                self.estado.config(text="No se pudo instalar el componente.")
+                messagebox.showerror("No se pudo instalar",
+                                     "Abre una terminal (cmd) y escribe exactamente:\n\n"
+                                     f'    "{py}" -m pip install cryptography\n\n'
+                                     "Detalle:\n" + (r.stderr or r.stdout)[-500:])
+        self.after(0, fin)
 
     def elegir_marca(self):
         f = filedialog.askopenfilename(title="Marca de voz", filetypes=[("Audio", " ".join("*" + x for x in FORMATOS))])
