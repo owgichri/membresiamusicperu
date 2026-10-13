@@ -120,7 +120,7 @@ def cifrar(origen, destino):
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
     iv = os.urandom(12)
     datos = AESGCM(bytes.fromhex(CLAVE_HEX)).encrypt(iv, Path(origen).read_bytes(), None)
-    Path(destino).write_text(base64.b64encode(iv + datos).decode("ascii"))
+    Path(destino).write_bytes(iv + datos)
 
 
 def slug(t):
@@ -340,14 +340,14 @@ class App(tk.Tk):
                 nombre = f"{n:02d}-{slug((t['artist'] + ' ' if t['artist'] else '') + t['title'])}"
                 tmp = sal / f"_{nombre}.m4a"
                 dur = marcar(self.marca.get(), t["archivo"], tmp, recorte)
-                destino = prev / f"{nombre}.txt"
+                destino = prev / f"{nombre}.bin"
                 cifrar(tmp, destino)
                 mb = destino.stat().st_size / 1e6
                 if mb > LIMITE_WEB_MB: grandes.append(f"{destino.name} ({mb:.0f} MB)")
                 if self.guardar_audio.get(): shutil.move(str(tmp), esc / f"{nombre}.m4a")
                 else: tmp.unlink()
                 pistas.append({"title": t["title"], "artist": t["artist"], "type": t["type"], "bpm": t["bpm"],
-                               "len": f"{int(dur // 60)}:{int(dur % 60):02d}", "enc": f"previews/{nombre}.txt"})
+                               "len": f"{int(dur // 60)}:{int(dur % 60):02d}", "enc": f"previews/{nombre}.bin"})
             (sal / "tracks.json").write_text(json.dumps(pistas, ensure_ascii=False, indent=2), encoding="utf-8")
             msg = f"Se prepararon {total} canciones.\n\nCarpeta: {sal}\n\nSube a GitHub la carpeta 'previews' y 'tracks.json' (no subas 'escuchar')."
             if grandes:

@@ -15,7 +15,7 @@ Cada vez que cambias esos archivos en GitHub, Vercel publica la página actualiz
 5. **Duración de la vista previa:** 90 segundos recomendado (cada archivo queda en ~5 MB y se puede subir desde la web).
    Pon 0 solo si quieres la canción completa.
 6. Presiona **Procesar**. Se crea una carpeta con:
-   - `previews/` — las canciones con marca de agua y cifradas
+   - `previews/` — las canciones con marca de agua y cifradas (archivos `.bin`)
    - `tracks.json` — la lista (título, artista, tipo, BPM, duración)
    - `escuchar/` — copia escuchable solo para ti. **No la subas.**
 
@@ -31,7 +31,7 @@ El programa intenta leer los datos del nombre del archivo (luego puedes corregir
 2. Desactiva la traducción automática de Chrome en GitHub (para ver los nombres reales de los archivos).
 3. En la página principal del repositorio: **Add file › Upload files**.
 4. Arrastra la **carpeta** `previews` completa (no los archivos sueltos) y el archivo `tracks.json`.
-   En la lista de carga deben aparecer como `previews/01-....txt`. Si aparecen sin `previews/`, cancela y vuelve a arrastrar la carpeta.
+   En la lista de carga deben aparecer como `previews/01-....bin`. Si aparecen sin `previews/`, cancela y vuelve a arrastrar la carpeta.
 5. Abajo escribe un mensaje (ej. "Top 10 noviembre") y presiona **Commit changes**.
 6. Espera 1–2 minutos y recarga tu página.
 

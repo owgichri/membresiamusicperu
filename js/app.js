@@ -69,9 +69,12 @@ class Component extends DCLogic {
     this.cache = this.cache || {};
     if (typeof this.cache[i] === 'string') return Promise.resolve(this.cache[i]);
     if (this.cache[i]) return this.cache[i];
-    var pr = fetch(t.enc).then(function (r) { if (!r.ok) throw new Error('red'); return r.text(); }).then(function (b64) {
-      var bin = atob(b64.trim()), n = bin.length, u = new Uint8Array(n);
-      for (var j = 0; j < n; j++) u[j] = bin.charCodeAt(j);
+    var isBin = /\.bin(\?|$)/i.test(t.enc);
+    var pr = fetch(t.enc).then(function (r) { if (!r.ok) throw new Error('red'); return isBin ? r.arrayBuffer() : r.text(); }).then(function (data) {
+      if (isBin) return new Uint8Array(data);
+      // formato antiguo (.txt en base64): el navegador lo decodifica de forma nativa
+      return fetch('data:application/octet-stream;base64,' + String(data).trim()).then(function (r) { return r.arrayBuffer(); }).then(function (b) { return new Uint8Array(b); });
+    }).then(function (u) {
       return self.getKey().then(function (key) {
         return crypto.subtle.decrypt({ name: 'AES-GCM', iv: u.slice(0, 12) }, key, u.slice(12));
       });
@@ -85,19 +88,23 @@ class Component extends DCLogic {
     return pr;
   }
   unlock() {
-    if (this.unlocked || !this.audio) return;
-    this.unlocked = true;
+    // Desbloquea el audio en celulares: debe ejecutarse dentro del toque del usuario.
+    if (this.unlockP) return this.unlockP;
+    if (!this.audio) return Promise.resolve();
     var sr = 8000, n = 800, buf = new ArrayBuffer(44 + n), v = new DataView(buf);
     var w = function (o, str) { for (var k = 0; k < str.length; k++) v.setUint8(o + k, str.charCodeAt(k)); };
     w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
     v.setUint32(24, sr, true); v.setUint32(28, sr, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); w(36, 'data'); v.setUint32(40, n, true);
     for (var k = 0; k < n; k++) v.setUint8(44 + k, 128);
     this.silent = true;
+    this.loadedIdx = -1;
     this.audio.src = URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
-    var p = this.audio.play(); if (p && p.catch) p.catch(function () {});
+    var p = this.audio.play();
+    this.unlockP = (p && p.then ? p : Promise.resolve()).catch(function () {});
+    return this.unlockP;
   }
   startAudio(i, url) {
-    if (this.state.cur !== i || !this.audio) return;
+    if (this.wantIdx !== i || !this.audio) return;
     if (this.loadedIdx !== i) { this.silent = false; this.audio.src = url; this.loadedIdx = i; }
     this.silent = false;
     var p = this.audio.play(); if (p && p.catch) p.catch(function () {});
@@ -110,19 +117,21 @@ class Component extends DCLogic {
   playNow(idx) {
     var self = this, i = typeof idx === 'number' ? idx : this.state.cur;
     var t = this.trackData()[i];
+    this.wantIdx = i;
     if (!t.enc) { this.setState({ notice: 'La vista previa de este tema estará disponible pronto.', playing: false }); return; }
     this.cache = this.cache || {};
     if (typeof this.cache[i] === 'string') { this.setState({ notice: '' }); this.startAudio(i, this.cache[i]); return; }
-    this.unlock();
+    var un = this.unlock();
     this.setState({ loading: true, notice: '' });
-    this.decrypt(i).then(function (url) {
+    Promise.all([this.decrypt(i), un]).then(function (r) {
       self.setState({ loading: false });
-      self.startAudio(i, url);
+      self.startAudio(i, r[0]);
     }).catch(function () {
       self.setState({ loading: false, playing: false, notice: 'No se pudo cargar la vista previa. Revisa tu conexión e inténtalo de nuevo.' });
     });
   }
   goTo(i, play) {
+    this.wantIdx = i;
     if (this.audio && !this.audio.paused) this.audio.pause();
     if (i !== this.state.cur) this.setState({ cur: i, time: 0, dur: 0, notice: '' });
     if (play) this.playNow(i);
@@ -325,14 +334,14 @@ class Component extends DCLogic {
       setAudio: function (el) { self.audio = el; if (el) { el.volume = s.vol; el.muted = s.muted; } },
       tracks: tracks, trackCount: n, readyCount: ready.length,
       track: { title: tr.full, editor: 'Edición exclusiva DJ Music Perú', type: tr.type, plan: tr.bpm ? tr.bpm + ' BPM' : '', planStyle: tr.bpm ? 'font-size: 11px; font-weight: 600; border-radius: 999px; padding: 3px 9px; background: #191b30; color: #ffffff;' : 'display: none' },
-      playing: s.playing, paused: !s.playing, playLabel: s.playing ? 'Pausar' : 'Reproducir',
+      playing: s.playing && !s.loading, paused: !s.playing && !s.loading, loadingAudio: !!s.loading, playLabel: s.loading ? 'Cargando' : (s.playing ? 'Pausar' : 'Reproducir'),
       statusLabel: s.loading ? 'Cargando…' : (s.playing ? 'Sonando ahora' : 'Vista previa'),
       time: s.time, dur: s.dur || 1, timeLabel: this.fmt(s.time), durLabel: (tr.enc && s.dur) ? this.fmt(s.dur) : (tr.len || '0:00'),
       muted: s.muted, unmuted: !s.muted, muteLabel: s.muted ? 'Activar sonido' : 'Silenciar', volShown: s.muted ? 0 : s.vol,
       shuffleOn: s.shuffle ? 'true' : 'false', repeatOn: s.repeat ? 'true' : 'false',
       shuffleColor: s.shuffle ? 'color: #e3121a' : 'color: #8a909c', repeatColor: s.repeat ? 'color: #e3121a' : 'color: #8a909c',
       hasNotice: !!s.notice, notice: s.notice,
-      toggle: function () { if (s.playing && self.audio) self.audio.pause(); else self.playNow(); },
+      toggle: function () { if (s.loading) return; if (s.playing && self.audio) self.audio.pause(); else self.playNow(); },
       prev: function () { if (self.audio && !self.silent && self.loadedIdx === cur && self.audio.currentTime > 3) { self.audio.currentTime = 0; return; } self.goTo(prevIdx(), s.playing); },
       next: function () { self.goTo(nextIdx(), s.playing); },
       toggleShuffle: function () { self.setState({ shuffle: !s.shuffle }); },

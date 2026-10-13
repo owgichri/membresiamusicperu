@@ -247,6 +247,8 @@ footer{padding-bottom:110px !important}
 }
 @keyframes stickUp{from{transform:translateY(100%)}to{transform:none}}
 @media (prefers-reduced-motion:reduce){.lb,.stick{animation:none}}
+.pl-spin{width:24px;height:24px;border-radius:50%;border:3px solid rgba(255,255,255,.35);border-top-color:#ffffff;animation:plSpin .8s linear infinite}
+@keyframes plSpin{to{transform:rotate(360deg)}}
 </style>
 <style>#app-loading{min-height:100vh}</style>
 <script src="js/consent-pixels.js"></script>
@@ -435,6 +437,7 @@ footer{padding-bottom:110px !important}
 <button type="button" onClick="{{toggle}}" aria-label="{{playLabel}}" class="pl-main" style="width: 60px; height: 60px; border-radius: 50%; border: 0; background: #e3121a; color: #ffffff; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px rgba(227,18,26,.35)">
 <sc-if value="{{playing}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg></sc-if>
 <sc-if value="{{paused}}" hint-placeholder-val="{{ true }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg></sc-if>
+<sc-if value="{{loadingAudio}}" hint-placeholder-val="{{ false }}"><span class="pl-spin" aria-hidden="true"></span></sc-if>
 </button>
 <button type="button" onClick="{{next}}" aria-label="Siguiente" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: #191b30; cursor: pointer; display: inline-flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4l10 8-10 8V4z" fill="currentColor"></path><path d="M19 5v14"></path></svg></button>
 <button type="button" onClick="{{toggleRepeat}}" aria-pressed="{{repeatOn}}" aria-label="Repetir tema" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: #191b30; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; {{repeatColor}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 1l4 4-4 4"></path><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><path d="M7 23l-4-4 4-4"></path><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg></button>
