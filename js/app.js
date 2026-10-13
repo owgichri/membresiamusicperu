@@ -2,13 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { plan: 'exclusivo', role: 0, cat: 0, billing: 'mensual', t: 0, faq: 0, disk: '1tb', menuOpen: false, theme: (document.documentElement.getAttribute('data-theme') || 'light'), lb: null, stick: false, ckBanner: false, ckCfg: false, ckPolicy: false, ckAna: false, ckAds: false, name: '', cur: 0, playing: false, loading: false, promoIn: false, time: 0, dur: 0, vol: 0.8, muted: false, shuffle: false, repeat: false, notice: '' };
-  }
-  setTheme(t) {
-    document.documentElement.setAttribute('data-theme', t);
-    try { localStorage.setItem('djmp_theme', t); } catch (e) {}
-    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', t === 'dark' ? '#0f1020' : '#191b30');
-    this.setState({ theme: t });
+    this.state = { plan: 'exclusivo', role: 0, cat: 0, billing: 'mensual', t: 0, faq: 0, disk: '1tb', menuOpen: false, lb: null, stick: false, ckBanner: false, ckCfg: false, ckPolicy: false, ckAna: false, ckAds: false, name: '', cur: 0, playing: false, loading: false, promoIn: false, time: 0, dur: 0, vol: 0.8, muted: false, shuffle: false, repeat: false, notice: '' };
   }
   goT(i, dir) {
     this.setState({ t: i, tDir: dir });
@@ -155,7 +149,7 @@ class Component extends DCLogic {
   }
   pill(active, dark) {
     var base = 'border: 0; cursor: pointer; font: inherit; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px; min-height: 44px; ';
-    return active ? base + 'background: var(--ink); color: #ffffff;' : base + 'background: transparent; color: var(--text);';
+    return active ? base + 'background: #191b30; color: #ffffff;' : base + 'background: transparent; color: #191b30;';
   }
   renderVals() {
     var s = this.state;
@@ -206,7 +200,7 @@ class Component extends DCLogic {
       : { title: roleSel.title, desc: roleSel.desc, bullets: roleSel.bullets, cta: roleSel.cta, img: roleSel.img, alt: roleSel.alt, disk: false, notDisk: true, d1: false, d2: false, price: '', href: waLink };
     var roles = rolesData.map(function (r, i) {
       var a = s.role === i;
-      var st = 'cursor: pointer; font: inherit; font-size: 14px; font-weight: 600; padding: 11px 18px; border-radius: 999px; min-height: 44px; border: 1px solid ' + (a ? 'var(--ink)' : 'var(--line)') + '; background: ' + (a ? 'var(--ink)' : 'var(--surface)') + '; color: ' + (a ? '#ffffff' : 'var(--text)') + ';';
+      var st = 'cursor: pointer; font: inherit; font-size: 14px; font-weight: 600; padding: 11px 18px; border-radius: 999px; min-height: 44px; border: 1px solid ' + (a ? '#191b30' : '#dfe2e8') + '; background: ' + (a ? '#191b30' : '#ffffff') + '; color: ' + (a ? '#ffffff' : '#191b30') + ';';
       return { label: r.label, active: a ? 'true' : 'false', style: st, pick: function () { self.setState({ role: i }); } };
     });
 
@@ -221,12 +215,12 @@ class Component extends DCLogic {
     ];
     var cats = catsData.map(function (c, i) {
       var a = s.cat === i;
-      var st = 'width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; cursor: pointer; font: inherit; font-size: 15px; font-weight: 600; padding: 12px 16px; border-radius: 14px; min-height: 44px; color: var(--text); border: 1px solid ' + (a ? '#e3e6eb' : 'transparent') + '; background: ' + (a ? '#ffffff' : 'transparent') + '; box-shadow: ' + (a ? 'inset 3px 0 0 #ff1f1f, 0 4px 14px rgba(25,27,48,.06)' : 'none') + ';';
+      var st = 'width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; cursor: pointer; font: inherit; font-size: 15px; font-weight: 600; padding: 12px 16px; border-radius: 14px; min-height: 44px; color: #191b30; border: 1px solid ' + (a ? '#e3e6eb' : 'transparent') + '; background: ' + (a ? '#ffffff' : 'transparent') + '; box-shadow: ' + (a ? 'inset 3px 0 0 #ff1f1f, 0 4px 14px rgba(25,27,48,.06)' : 'none') + ';';
       return { label: c.label, plan: c.plan, active: a ? 'true' : 'false', style: st, pick: function () { self.setState({ cat: i }); } };
     });
     var c = catsData[s.cat];
     var onlyEx = c.plan === 'Exclusivo';
-    var tagOn = 'font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--tint); color: var(--red-text);';
+    var tagOn = 'font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: #ffe8e9; color: #a10a10;';
     var tagNav = 'font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: #191b30; color: #ffffff;';
     var week = onlyEx
       ? [ { day: 'Martes', tag: 'Plan base', tagStyle: tagNav, items: ['Packs por género', 'Virales de la semana'] },
@@ -241,7 +235,7 @@ class Component extends DCLogic {
       var pr = (d === 'Mar' || d === 'Vie') ? 70 : 0;
       var ex = (d === 'Mar' || d === 'Vie') ? 24 : (d === 'Sáb' ? 80 : 0);
       var b = 'display: block; border-radius: 8px; width: 100%; ';
-      return { d: d, pr: b + 'background: var(--bar); height: ' + pr + '%;', ex: b + 'background: #ff1f1f; height: ' + ex + '%;' };
+      return { d: d, pr: b + 'background: #191b30; height: ' + pr + '%;', ex: b + 'background: #ff1f1f; height: ' + ex + '%;' };
     });
 
     var tData = [
@@ -272,7 +266,7 @@ class Component extends DCLogic {
     ];
     var faqs = faqData.map(function (f, i) {
       var open = s.faq === i;
-      var ic = 'flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; ' + (open ? 'background: var(--ink); color: #ffffff;' : 'background: #ff1f1f; color: var(--text);');
+      var ic = 'flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; ' + (open ? 'background: #191b30; color: #ffffff;' : 'background: #ff1f1f; color: #191b30;');
       return { q: f.q, a: f.a, open: open, iconStyle: ic, iconPath: open ? 'M5 12h14' : 'M12 5v14M5 12h14', toggle: function () { self.setState({ faq: open ? -1 : i }); } };
     });
 
@@ -307,15 +301,15 @@ class Component extends DCLogic {
       var before = ready.filter(function (i) { return i < cur; }); return before.length ? before[before.length - 1] : ready[ready.length - 1];
     };
     var tr = tlist[cur];
-    var planStyle = function (pl) { return 'font-size: 11px; font-weight: 600; border-radius: 999px; padding: 3px 9px; ' + (pl === 'Exclusivo' ? 'background: #191b30; color: #ffffff;' : 'background: var(--tint); color: var(--red-text);'); };
+    var planStyle = function (pl) { return 'font-size: 11px; font-weight: 600; border-radius: 999px; padding: 3px 9px; ' + (pl === 'Exclusivo' ? 'background: #191b30; color: #ffffff;' : 'background: #ffe8e9; color: #a10a10;'); };
     var tracks = tlist.map(function (t, i) {
       var on = i === cur;
       return {
         num: (i + 1 < 10 ? '0' : '') + (i + 1), title: t.full, editor: t.meta, type: t.type, len: t.len || '—',
         current: on ? 'true' : 'false', eq: on && s.playing, noEq: !(on && s.playing),
         aria: 'Reproducir ' + t.full,
-        rowStyle: 'width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 0; border-radius: 12px; cursor: pointer; font: inherit; color: var(--text); min-height: 52px; background: ' + (on ? 'var(--tint)' : 'transparent') + ';',
-        titleStyle: 'font-size: 14px; font-weight: ' + (on ? '700' : '600') + '; color: ' + (on ? 'var(--red-text)' : 'var(--text)') + '; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;',
+        rowStyle: 'width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 0; border-radius: 12px; cursor: pointer; font: inherit; color: #191b30; min-height: 52px; background: ' + (on ? '#fff1f1' : 'transparent') + ';',
+        titleStyle: 'font-size: 14px; font-weight: ' + (on ? '700' : '600') + '; color: ' + (on ? '#a10a10' : '#191b30') + '; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;',
         pick: function () { self.goTo(i, true); }
       };
     });
@@ -336,7 +330,7 @@ class Component extends DCLogic {
       time: s.time, dur: s.dur || 1, timeLabel: this.fmt(s.time), durLabel: (tr.enc && s.dur) ? this.fmt(s.dur) : (tr.len || '0:00'),
       muted: s.muted, unmuted: !s.muted, muteLabel: s.muted ? 'Activar sonido' : 'Silenciar', volShown: s.muted ? 0 : s.vol,
       shuffleOn: s.shuffle ? 'true' : 'false', repeatOn: s.repeat ? 'true' : 'false',
-      shuffleColor: s.shuffle ? 'color: #e3121a' : 'color: var(--muted3)', repeatColor: s.repeat ? 'color: #e3121a' : 'color: var(--muted3)',
+      shuffleColor: s.shuffle ? 'color: #e3121a' : 'color: #8a909c', repeatColor: s.repeat ? 'color: #e3121a' : 'color: #8a909c',
       hasNotice: !!s.notice, notice: s.notice,
       toggle: function () { if (s.playing && self.audio) self.audio.pause(); else self.playNow(); },
       prev: function () { if (self.audio && !self.silent && self.loadedIdx === cur && self.audio.currentTime > 3) { self.audio.currentTime = 0; return; } self.goTo(prevIdx(), s.playing); },
@@ -381,7 +375,7 @@ class Component extends DCLogic {
       tDots: tData.map(function (x, i) {
         var on = i === s.t;
         return { label: 'Testimonio ' + (i + 1), current: on ? 'true' : 'false', pick: function () { self.goT(i, i < s.t ? 'prev' : 'next'); },
-          style: 'display: block; height: 8px; border-radius: 999px; transition: width .3s ease, background .3s ease; width: ' + (on ? '28px' : '8px') + '; background: ' + (on ? '#ff1f1f' : 'var(--line)') + ';' };
+          style: 'display: block; height: 8px; border-radius: 999px; transition: width .3s ease, background .3s ease; width: ' + (on ? '28px' : '8px') + '; background: ' + (on ? '#ff1f1f' : '#c9cdd4') + ';' };
       }),
       prevT: function () { self.goT((s.t + tData.length - 1) % tData.length, 'prev'); },
       nextT: function () { self.goT((s.t + 1) % tData.length, 'next'); },
@@ -408,12 +402,6 @@ class Component extends DCLogic {
         { k: 'Enero a octubre', v: 'S/25' }, { k: 'Anual 2026 (enero a diciembre)', v: 'S/50' }
       ],
       payments: payments,
-      isDark: s.theme === 'dark', isLight: s.theme !== 'dark',
-      darkPressed: s.theme === 'dark' ? 'true' : 'false', lightPressed: s.theme !== 'dark' ? 'true' : 'false',
-      themeLabel: s.theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro',
-      toggleTheme: function () { self.setTheme(s.theme === 'dark' ? 'light' : 'dark'); },
-      setLight: function () { self.setTheme('light'); },
-      setDark: function () { self.setTheme('dark'); },
       setHm: function (el) { self.hmEl = el; },
       stickShow: !!s.stick && !s.ckBanner && !s.lb && !s.menuOpen,
       lbOpen: !!s.lb, lbSrc: s.lb ? s.lb.src : '', lbAlt: s.lb ? s.lb.alt : '',
