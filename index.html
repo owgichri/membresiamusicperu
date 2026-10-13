@@ -212,6 +212,41 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #191b
 .h1{font-size:38px !important}
 .h2{font-size:30px !important}
 }
+.hm{display:none}
+.fly-zoom{position:absolute;right:14px;bottom:14px;z-index:3;display:none;align-items:center;gap:6px;min-height:40px;padding:8px 14px;border-radius:999px;border:0;background:rgba(25,27,48,.82);color:#ffffff;font:inherit;font-size:13px;font-weight:600;cursor:pointer;backdrop-filter:blur(4px)}
+.hv-media .hv-flyer{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:80;background:rgba(10,11,22,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:64px 16px 24px;animation:ckUp .25s ease both}
+.lb-img{display:block;max-width:100%;max-height:calc(100vh - 170px);width:auto;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lb-x{position:absolute;top:14px;right:14px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#ffffff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.lb-cta{font-size:15px;font-weight:600;padding:14px 24px;border-radius:999px;min-height:48px;display:inline-flex;align-items:center}
+.stick{display:none}
+@media (max-width:700px){
+#inicio{padding:0 0 48px !important}
+.hm{display:block;background:#191b30;color:#ffffff;padding:30px 0 34px;margin-bottom:28px;position:relative;overflow:hidden}
+.hm::after{content:"";position:absolute;right:-90px;top:-90px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,31,31,.30),rgba(255,31,31,0) 70%);pointer-events:none}
+.hm > .wrap{position:relative;z-index:1}
+.hm-pill{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:rgba(255,31,31,.16);border:1px solid rgba(255,31,31,.35);color:#ffd6d7;font-size:12px;font-weight:600;padding:7px 12px;border-radius:999px}
+.hm-title{margin:0;font-size:40px;line-height:1.05;letter-spacing:-0.03em;font-weight:800;color:#ffffff}
+.hm-title span{display:block;margin-top:8px;font-size:28px;font-weight:700;color:#ff1f1f;letter-spacing:-0.02em}
+.hm-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;font-size:16px;font-weight:600;color:#ffffff}
+.hm-list li{display:flex;align-items:center;gap:12px}
+.hm-ic{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:#e3121a;display:inline-flex;align-items:center;justify-content:center}
+.hm-price{margin:4px 0 0;font-size:15px;color:#c8cad6}.hm-price strong{font-size:26px;color:#ffffff;font-weight:800;letter-spacing:-0.02em}
+.hm-ctas{display:grid;grid-template-columns:1.25fr 1fr;gap:10px}
+.hm-btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;border-radius:14px;font-size:15px;font-weight:700;text-decoration:none;text-align:center;padding:0 10px}
+.hm-ghost{border:1.5px solid rgba(255,255,255,.75);color:#ffffff}.hm-ghost:hover{background:rgba(255,255,255,.08);color:#ffffff}
+.hm-trust{margin:2px 0 0;display:flex;align-items:center;gap:10px;font-size:13px;color:#b9bccb}
+.hm-dots{display:inline-flex}.hm-dots span{width:22px;height:22px;border-radius:50%;border:2px solid #191b30;background:#3a3d5c;margin-left:-6px}.hm-dots span:first-child{margin-left:0;background:#e3121a}.hm-dots span:nth-child(2){background:#ffffff}
+.h-eyebrow,.h-title,.h-lead,.h-form,.h-note{display:none !important}
+.h-toggle{margin-top:0}
+.fly-zoom{display:inline-flex}
+.stick{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#191b30;box-shadow:0 -10px 30px rgba(25,27,48,.25);animation:stickUp .3s ease both}
+.stick-price{display:flex;flex-direction:column;line-height:1.1;color:#c8cad6;font-size:12px}.stick-price strong{color:#ffffff;font-size:20px;font-weight:800}
+.stick-btn{flex:0 0 auto;min-height:46px;padding:0 18px;border-radius:12px;display:inline-flex;align-items:center;font-size:15px;font-weight:700}
+footer{padding-bottom:110px !important}
+}
+@keyframes stickUp{from{transform:translateY(100%)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.lb,.stick{animation:none}}
 </style>
 <style>#app-loading{min-height:100vh}</style>
 <script src="js/consent-pixels.js"></script>
@@ -255,6 +290,23 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #191b
 
 <!-- 2. HERO -->
 <section id="inicio" style="padding: 72px 0 80px">
+<div class="hm" ref="{{setHm}}">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 18px">
+<span class="hm-pill"><span style="width: 8px; height: 8px; border-radius: 50%; background: #ff1f1f"></span>Packs nuevos martes, viernes y sábado</span>
+<h1 class="hm-title">Ediciones exclusivas para DJs <span>Nuevas cada semana</span></h1>
+<ul class="hm-list">
+<li><span class="hm-ic" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></span>Editores top del Perú</li>
+<li><span class="hm-ic" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></span>Versiones exclusivas y privadas</li>
+<li><span class="hm-ic" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg></span>Acceso inmediato por WhatsApp</li>
+</ul>
+<p class="hm-price">Desde <strong>S/15</strong> al mes</p>
+<div class="hm-ctas">
+<a class="btn-red hm-btn" href="{{waLink}}">Quiero mi acceso</a>
+<a class="hm-btn hm-ghost" href="#planes">Ver planes</a>
+</div>
+<p class="hm-trust"><span class="hm-dots" aria-hidden="true"><span></span><span></span><span></span></span>Más de 100 DJs activos · 50+ editores</p>
+</div>
+</div>
 <div class="wrap hero-grid">
 <div class="hl-col" style="display: flex; flex-direction: column; gap: 22px">
 <span class="h-eyebrow" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; background: #ffe8e9; color: #a10a10; font-size: 12px; font-weight: 600; padding: 7px 12px; border-radius: 999px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #ff1f1f"></span>Packs nuevos martes, viernes y sábado</span>
@@ -279,7 +331,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #191b
 <div class="hv">
 <sc-if value="{{isPremium}}" hint-placeholder-val="{{ true }}">
 <div class="hv-media">
-<img class="anim-flyer flyer hv-flyer" src="assets/img/premium.jpg" alt="Flyer de la Membresía Premium de octubre 2026" style="display: block; border-radius: 22px; box-shadow: 0 30px 60px rgba(25,27,48,.35); border: 6px solid #ffffff">
+<button type="button" class="fly-zoom" onClick="{{openLb}}" aria-label="Ampliar el flyer de la Membresía Premium"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg><span>Ampliar</span></button>
+<img onClick="{{openLb}}" class="anim-flyer flyer hv-flyer" src="assets/img/premium.jpg" alt="Flyer de la Membresía Premium de octubre 2026" style="display: block; border-radius: 22px; box-shadow: 0 30px 60px rgba(25,27,48,.35); border: 6px solid #ffffff">
 <div class="anim-pop hv-badge" style="background: #ffffff; border-radius: 16px; padding: 12px 16px; box-shadow: 0 14px 30px rgba(25,27,48,.16); display: flex; align-items: center; gap: 12px">
 <span style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; background: #ff1f1f; display: inline-flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></span>
 <span style="display: flex; flex-direction: column; line-height: 1.15"><span style="font-size: 12px; color: #5d6370">Desde</span><span class="hv-price" style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em">S/15.00<span style="font-size: 13px; font-weight: 600; color: #5d6370"> al mes</span></span></span>
@@ -296,7 +349,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #191b
 </sc-if>
 <sc-if value="{{isExclusive}}" hint-placeholder-val="{{ true }}">
 <div class="hv-media">
-<img class="anim-flyer flyer hv-flyer" src="assets/img/exclusiva.jpg" alt="Flyer de la Membresía Exclusiva de octubre 2026" style="display: block; border-radius: 22px; box-shadow: 0 30px 60px rgba(25,27,48,.35); border: 6px solid #ffffff">
+<button type="button" class="fly-zoom" onClick="{{openLb}}" aria-label="Ampliar el flyer de la Membresía Exclusiva"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg><span>Ampliar</span></button>
+<img onClick="{{openLb}}" class="anim-flyer flyer hv-flyer" src="assets/img/exclusiva.jpg" alt="Flyer de la Membresía Exclusiva de octubre 2026" style="display: block; border-radius: 22px; box-shadow: 0 30px 60px rgba(25,27,48,.35); border: 6px solid #ffffff">
 <div class="anim-pop hv-badge" style="background: #ffffff; border-radius: 16px; padding: 12px 16px; box-shadow: 0 14px 30px rgba(25,27,48,.16); display: flex; align-items: center; gap: 12px">
 <span style="flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; background: #ff1f1f; display: inline-flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></span>
 <span style="display: flex; flex-direction: column; line-height: 1.15"><span style="font-size: 12px; color: #5d6370">Desde</span><span class="hv-price" style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em">S/20.00<span style="font-size: 13px; font-weight: 600; color: #5d6370"> al mes</span></span></span>
@@ -743,6 +797,19 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #191b
 </div>
 </footer>
 
+<sc-if value="{{lbOpen}}" hint-placeholder-val="{{ false }}">
+<div class="lb" role="dialog" aria-modal="true" aria-label="Flyer ampliado" onClick="{{lbOverlay}}" onKeyDown="{{lbKey}}">
+<button type="button" class="lb-x" onClick="{{closeLb}}" aria-label="Cerrar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+<img src="{{lbSrc}}" alt="{{lbAlt}}" class="lb-img">
+<a class="btn-red lb-cta" href="{{waLink}}">Quiero esta membresía</a>
+</div>
+</sc-if>
+<sc-if value="{{stickShow}}" hint-placeholder-val="{{ false }}">
+<div class="stick" role="region" aria-label="Unirme">
+<span class="stick-price"><span>Desde</span><span><strong>S/15</strong> al mes</span></span>
+<a class="btn-red stick-btn" href="{{waLink}}">Unirme por WhatsApp</a>
+</div>
+</sc-if>
 <sc-if value="{{ckBanner}}" hint-placeholder-val="{{ false }}">
 <div class="ck-banner" role="region" aria-label="Aviso de cookies">
 <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">

@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { plan: 'exclusivo', role: 0, cat: 0, billing: 'mensual', t: 0, faq: 0, disk: '1tb', menuOpen: false, ckBanner: false, ckCfg: false, ckPolicy: false, ckAna: false, ckAds: false, name: '', cur: 0, playing: false, loading: false, promoIn: false, time: 0, dur: 0, vol: 0.8, muted: false, shuffle: false, repeat: false, notice: '' };
+    this.state = { plan: 'exclusivo', role: 0, cat: 0, billing: 'mensual', t: 0, faq: 0, disk: '1tb', menuOpen: false, lb: null, stick: false, ckBanner: false, ckCfg: false, ckPolicy: false, ckAna: false, ckAds: false, name: '', cur: 0, playing: false, loading: false, promoIn: false, time: 0, dur: 0, vol: 0.8, muted: false, shuffle: false, repeat: false, notice: '' };
   }
   goT(i, dir) {
     this.setState({ t: i, tDir: dir });
@@ -19,6 +19,11 @@ class Component extends DCLogic {
     this.setState({ ckAna: !!ana, ckAds: !!ads, ckBanner: false, ckCfg: false, ckPolicy: false });
   }
   componentDidMount() {
+    var selfS = this;
+    if (this.hmEl && typeof IntersectionObserver !== 'undefined') {
+      this.hmIo = new IntersectionObserver(function (en) { selfS.setState({ stick: !en[0].isIntersecting }); }, { threshold: 0 });
+      this.hmIo.observe(this.hmEl);
+    }
     var ckPrev = this.ckLoad();
     if (ckPrev) this.setState({ ckAna: !!ckPrev.analitica, ckAds: !!ckPrev.publicidad });
     else this.setState({ ckBanner: true });
@@ -43,6 +48,7 @@ class Component extends DCLogic {
     } else { this.setState({ promoIn: true }); }
   }
   componentWillUnmount() {
+    if (this.hmIo) this.hmIo.disconnect();
     if (this.tTimer) clearInterval(this.tTimer);
     if (this.io) this.io.disconnect();
     var c = this.cache || {};
@@ -396,6 +402,18 @@ class Component extends DCLogic {
         { k: 'Enero a octubre', v: 'S/25' }, { k: 'Anual 2026 (enero a diciembre)', v: 'S/50' }
       ],
       payments: payments,
+      setHm: function (el) { self.hmEl = el; },
+      stickShow: !!s.stick && !s.ckBanner && !s.lb && !s.menuOpen,
+      lbOpen: !!s.lb, lbSrc: s.lb ? s.lb.src : '', lbAlt: s.lb ? s.lb.alt : '',
+      openLb: function () {
+        var prem = s.plan === 'premium';
+        self.lbReturn = document.activeElement;
+        self.setState({ lb: { src: prem ? 'assets/img/premium.jpg' : 'assets/img/exclusiva.jpg', alt: 'Flyer de la Membresía ' + (prem ? 'Premium' : 'Exclusiva') + ' de octubre 2026' } });
+        setTimeout(function () { var b = document.querySelector('.lb-x'); if (b) b.focus(); }, 30);
+      },
+      closeLb: function () { self.setState({ lb: null }); if (self.lbReturn && self.lbReturn.focus) self.lbReturn.focus(); },
+      lbOverlay: function (e) { if (e.target === e.currentTarget) { self.setState({ lb: null }); } },
+      lbKey: function (e) { if (e.key === 'Escape') self.setState({ lb: null }); },
       ckBanner: !!s.ckBanner, ckCfg: !!s.ckCfg, ckPolicy: !!s.ckPolicy,
       ckAnaOn: s.ckAna ? 'true' : 'false', ckAdsOn: s.ckAds ? 'true' : 'false',
       ckAnaStyle: 'position: relative; flex: 0 0 52px; width: 52px; height: 30px; border-radius: 999px; border: 0; cursor: pointer; transition: background .2s ease; background: ' + (s.ckAna ? '#e3121a' : '#c9cdd4') + ';',
