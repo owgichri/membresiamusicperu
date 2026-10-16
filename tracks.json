@@ -1,82 +1,82 @@
 [
   {
-    "title": "Si Te Dejas Llevar",
-    "artist": "Ozuna",
-    "type": "INTT",
-    "bpm": "92",
-    "len": "2:06",
-    "enc": "previews/01-si-te-dejas-llevar.bin"
-  },
-  {
-    "title": "Qué Pasó",
-    "artist": "La Bella Luz",
-    "type": "IN Reparto",
-    "bpm": "111",
-    "len": "2:59",
-    "enc": "previews/02-que-paso.bin"
-  },
-  {
-    "title": "Dígame Usted",
-    "artist": "Kale",
+    "title": "Gozando En La Habana",
+    "artist": "Charanga Habanera",
     "type": "Splice",
-    "bpm": "96",
-    "len": "2:26",
-    "enc": "previews/03-digame-usted.bin"
+    "bpm": "100",
+    "len": "1:30",
+    "enc": "previews/01-charanga-habanera-gozando-en-la-habana.bin"
   },
   {
-    "title": "Porque Un Hombre No Llora",
-    "artist": "Esaud Suárez",
-    "type": "Coro Acapella",
-    "bpm": "133",
-    "len": "2:53",
-    "enc": "previews/04-esaud-suarez-porque-un-hombre-no-llora.bin"
+    "title": "Movin To The Sun",
+    "artist": "Hugel",
+    "type": "INPro",
+    "bpm": "126",
+    "len": "1:30",
+    "enc": "previews/02-hugel-movin-to-the-sun.bin"
   },
   {
-    "title": "La Noche",
-    "artist": "Darío Álvarez y El Team Havana",
-    "type": "IN Up Acapella",
-    "bpm": "98-115",
-    "len": "3:41",
-    "enc": "previews/05-dario-alvarez-y-el-team-havana-la-noche.bin"
+    "title": "Dame Hombro",
+    "artist": "Bulin 47, Kevin Wai",
+    "type": "Edición",
+    "bpm": "118",
+    "len": "1:30",
+    "enc": "previews/03-bulin-47-kevin-wai-dame-hombro.bin"
   },
   {
-    "title": "La Calabaza x Loba",
-    "artist": "",
-    "type": "Mashup Guaracha TT",
-    "bpm": "130",
-    "len": "1:34",
-    "enc": "previews/06-la-calabaza-x-loba.bin"
+    "title": "La Player",
+    "artist": "Zion & Lennox",
+    "type": "Splice Exclusivo",
+    "bpm": "094",
+    "len": "1:30",
+    "enc": "previews/04-zion-lennox-la-player.bin"
   },
   {
-    "title": "Matadora",
-    "artist": "Karol G",
-    "type": "Open Halloween 2026",
-    "bpm": "95",
-    "len": "3:09",
-    "enc": "previews/07-karol-g-matadora-open-halloween-2026.bin"
+    "title": "Papi Chulo",
+    "artist": "Lorna",
+    "type": "Splice",
+    "bpm": "110",
+    "len": "1:30",
+    "enc": "previews/05-lorna-papi-chulo.bin"
   },
   {
-    "title": "4K vs Bby Wow",
-    "artist": "El Alfa vs Karol G x Rusowsky",
-    "type": "Dembow Open Show",
-    "bpm": "120",
-    "len": "4:59",
-    "enc": "previews/08-4k-vs-bby-wow.bin"
+    "title": "Perreo Sola x La Fuga",
+    "artist": "Bad Bunny, Jay Wheler",
+    "type": "MashupTT",
+    "bpm": "100",
+    "len": "1:30",
+    "enc": "previews/06-bad-bunny-jay-wheler-perreo-sola-x-la-fu.bin"
   },
   {
-    "title": "Mujeres Solteras x Concierto",
-    "artist": "Bad Bunny",
-    "type": "Remix",
-    "bpm": "125",
-    "len": "4:34",
-    "enc": "previews/09-mujeres-solteras-concierto-culo-remix-ba.bin"
+    "title": "Perdon",
+    "artist": "Nicky Jam",
+    "type": "INSalsa",
+    "bpm": "094",
+    "len": "1:30",
+    "enc": "previews/07-nicky-jam-perdon.bin"
   },
   {
-    "title": "El Teléfono",
-    "artist": "Wisin y Yandel x Héctor El Father",
-    "type": "Open Show Halloween 2K26",
-    "bpm": "90",
-    "len": "4:16",
-    "enc": "previews/10-wisin-y-yandel-x-hector-el-father-el-tel.bin"
+    "title": "Perros Salvajes",
+    "artist": "Daddy Yankee",
+    "type": "Splice Intro",
+    "bpm": "095",
+    "len": "1:30",
+    "enc": "previews/08-daddy-yankee-perros-salvajes.bin"
+  },
+  {
+    "title": "Piensa En Mi",
+    "artist": "Las Estrellas de la Cumbia",
+    "type": "Edición",
+    "bpm": "094",
+    "len": "1:30",
+    "enc": "previews/09-las-estrellas-de-la-cumbia-piensa-en-mi.bin"
+  },
+  {
+    "title": "Mango Y Ron",
+    "artist": "Bad Bunny, Feid & Beele",
+    "type": "Edición",
+    "bpm": "102",
+    "len": "1:30",
+    "enc": "previews/10-bad-bunny-feid-beele-mango-y-ron.bin"
   }
 ]
