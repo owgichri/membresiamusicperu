@@ -1,11 +1,35 @@
 [
   {
-    "title": "Gozando En La Habana",
-    "artist": "Charanga Habanera",
-    "type": "Splice",
-    "bpm": "100",
+    "title": "Batidora X Salgo Pa La Calle",
+    "artist": "Daddy Yanke & Don Omar Ft Anuel",
+    "type": "Mashup Privados",
+    "bpm": "90",
     "len": "1:30",
-    "enc": "previews/01-charanga-habanera-gozando-en-la-habana.bin"
+    "enc": "previews/01-daddy-yanke-don-omar-ft-anuel-batidora-x.bin"
+  },
+  {
+    "title": "Saoco",
+    "artist": "Wisin Ft Daddy Yankee",
+    "type": "IOrg Intro Live",
+    "bpm": "96",
+    "len": "1:30",
+    "enc": "previews/02-wisin-ft-daddy-yankee-saoco.bin"
+  },
+  {
+    "title": "Tembleque x El Teke Teke",
+    "artist": "Crazy & Carlitos Wey",
+    "type": "Up Show",
+    "bpm": "95-141",
+    "len": "1:30",
+    "enc": "previews/03-crazy-carlitos-wey-tembleque-x-el-teke-t.bin"
+  },
+  {
+    "title": "Coqueta Remix",
+    "artist": "DJ Peligro Ft Towa",
+    "type": "Up Afro House",
+    "bpm": "97-130",
+    "len": "1:30",
+    "enc": "previews/04-dj-peligro-ft-towa-coqueta-remix.bin"
   },
   {
     "title": "Movin To The Sun",
@@ -13,70 +37,46 @@
     "type": "INPro",
     "bpm": "126",
     "len": "1:30",
-    "enc": "previews/02-hugel-movin-to-the-sun.bin"
+    "enc": "previews/05-hugel-movin-to-the-sun.bin"
   },
   {
-    "title": "Dame Hombro",
-    "artist": "Bulin 47, Kevin Wai",
-    "type": "Edición",
-    "bpm": "118",
+    "title": "Saoco Private",
+    "artist": "Wisin Ft Daddy Yankee",
+    "type": "Up Afro House",
+    "bpm": "96-126",
     "len": "1:30",
-    "enc": "previews/03-bulin-47-kevin-wai-dame-hombro.bin"
+    "enc": "previews/06-wisin-ft-daddy-yankee-saoco-private.bin"
+  },
+  {
+    "title": "Soy Una Gargola",
+    "artist": "Jowell y Randy",
+    "type": "Open Show Epic",
+    "bpm": "94",
+    "len": "1:30",
+    "enc": "previews/07-jowell-y-randy-soy-una-gargola.bin"
+  },
+  {
+    "title": "Gozando En La Habana",
+    "artist": "Charanga Habanera",
+    "type": "Splice",
+    "bpm": "100",
+    "len": "1:30",
+    "enc": "previews/08-charanga-habanera-gozando-en-la-habana.bin"
   },
   {
     "title": "La Player",
     "artist": "Zion & Lennox",
     "type": "Splice Exclusivo",
-    "bpm": "094",
+    "bpm": "94",
     "len": "1:30",
-    "enc": "previews/04-zion-lennox-la-player.bin"
+    "enc": "previews/09-zion-lennox-la-player.bin"
   },
   {
-    "title": "Papi Chulo",
-    "artist": "Lorna",
-    "type": "Splice",
-    "bpm": "110",
-    "len": "1:30",
-    "enc": "previews/05-lorna-papi-chulo.bin"
-  },
-  {
-    "title": "Perreo Sola x La Fuga",
-    "artist": "Bad Bunny, Jay Wheler",
-    "type": "MashupTT",
-    "bpm": "100",
-    "len": "1:30",
-    "enc": "previews/06-bad-bunny-jay-wheler-perreo-sola-x-la-fu.bin"
-  },
-  {
-    "title": "Perdon",
-    "artist": "Nicky Jam",
-    "type": "INSalsa",
-    "bpm": "094",
-    "len": "1:30",
-    "enc": "previews/07-nicky-jam-perdon.bin"
-  },
-  {
-    "title": "Perros Salvajes",
+    "title": "Shaky Shaky",
     "artist": "Daddy Yankee",
-    "type": "Splice Intro",
-    "bpm": "095",
+    "type": "Splice",
+    "bpm": "92",
     "len": "1:30",
-    "enc": "previews/08-daddy-yankee-perros-salvajes.bin"
-  },
-  {
-    "title": "Piensa En Mi",
-    "artist": "Las Estrellas de la Cumbia",
-    "type": "Edición",
-    "bpm": "094",
-    "len": "1:30",
-    "enc": "previews/09-las-estrellas-de-la-cumbia-piensa-en-mi.bin"
-  },
-  {
-    "title": "Mango Y Ron",
-    "artist": "Bad Bunny, Feid & Beele",
-    "type": "Edición",
-    "bpm": "102",
-    "len": "1:30",
-    "enc": "previews/10-bad-bunny-feid-beele-mango-y-ron.bin"
+    "enc": "previews/10-daddy-yankee-shaky-shaky.bin"
   }
 ]
