@@ -211,17 +211,17 @@ class Component extends DCLogic {
     var premiumIncl = incl(['Ediciones Premium + Bonus VIP', 'Actualización martes y viernes', 'Carpetas de todos los géneros']);
     var exclusiveIncl = incl(['Ediciones exclusivas y privadas', 'Editores TOP del Perú', 'Incluye todo el plan Premium', 'Actualización martes, viernes y sábado', 'Versiones exclusivas']);
     var heroSummary = s.plan === 'premium'
-      ? 'Premium: 80 packs nuevos por semana, martes y viernes. Desde S/15 al mes.'
-      : 'Exclusivo: 90 packs nuevos por semana más ediciones privadas, martes, viernes y sábado. Desde S/20 al mes.';
+      ? 'Premium: 40 packs nuevos por semana más bonus VIP, martes y viernes. S/12 al mes.'
+      : 'Exclusivo: 50 packs nuevos por semana más ediciones privadas, martes, viernes y sábado. S/30 al mes.';
 
     var IMG_PLANES = 'assets/img/planes.jpg';
     var IMG_EXCL = 'assets/img/exclusiva.jpg';
-    var IMG_PROMO = 'assets/img/promo.jpg';
+    var IMG_PROMO = 'assets/img/preventa-2027.jpg';
     var rolesData = [
       { label: 'DJs de discoteca', title: 'Llega al fin de semana con lo que nadie más está tocando', desc: 'Las ediciones privadas salen el sábado en Exclusivo, justo antes de tus fechas fuertes.', bullets: ['Versiones que solo existen dentro de la membresía', 'Intros y mashups para abrir y subir la pista', 'Virales listos apenas pegan en redes', 'Actualización martes, viernes y sábado'], cta: 'Quiero el plan Exclusivo', img: IMG_EXCL, alt: 'Flyer de la Membresía Exclusiva' },
       { label: 'DJs de eventos', title: 'Matrimonios, quinceañeros y fiestas con música para todas las edades', desc: 'Actuales, retro y virales en un solo lugar, con puentes para pasar de género sin cortar el ambiente.', bullets: ['Todos los géneros: actuales, retro y virales', 'Puentes y transiciones entre géneros', 'Open show para la entrada de los novios o la quinceañera', 'Link permanente para descargar cuando lo necesites'], cta: 'Ver qué plan me conviene', img: IMG_PLANES, alt: 'Comparativa de planes Premium y Exclusivo' },
       { label: 'Backup + Disco duro', title: 'Backup Premium en disco duro, listo para conectar', desc: '900 GB de música premium actualizada hasta octubre 2026 en un disco duro Toshiba. Ideal para productoras, discotecas y DJs que tocan sin internet.', disk: true, bullets: [], cta: '', img: '', alt: '' },
-      { label: 'DJs que empiezan', title: 'Arma tu biblioteca desde el primer mes', desc: 'Con Premium tienes todos los géneros y 80 packs semanales desde S/15, sin pagar tema por tema.', bullets: ['Biblioteca completa por género', 'Ediciones premium listas para mezclar', 'Precio accesible, mensual o anual', 'Te ayudamos a elegir por WhatsApp'], cta: 'Empezar con Premium', img: IMG_PLANES, alt: 'Planes de membresía de octubre' }
+      { label: 'DJs que empiezan', title: 'Arma tu biblioteca desde el primer mes', desc: 'Con Premium tienes todos los géneros y 40 packs semanales desde S/12, sin pagar tema por tema.', bullets: ['Biblioteca completa por género', 'Ediciones premium listas para mezclar', 'Precio accesible, mensual o anual', 'Te ayudamos a elegir por WhatsApp'], cta: 'Empezar con Premium', img: IMG_PLANES, alt: 'Planes de membresía de noviembre' }
     ];
     var diskData = {
       '1tb': { label: '1 TB', price: 'S/480.00', img: 'assets/img/disco1tb.jpg', alt: 'Backup Premium más disco duro de 1 TB por S/480', bullets: ['900 GB de música premium actualizada', 'Backup actualizado hasta octubre 2026', 'Disco duro Toshiba de 1 TB', 'Envío gratis a todo el Perú'], cta: 'Pedir disco de 1 TB' },
@@ -287,15 +287,10 @@ class Component extends DCLogic {
     var t = tData[s.t];
     this.tCount = tData.length;
 
-    var billings = [{ id: 'mensual', label: 'Mensual' }, { id: 'anual', label: 'Anual' }].map(function (b) {
-      var a = s.billing === b.id;
-      return { label: b.label, active: a ? 'true' : 'false', style: self.pill(a), pick: function () { self.setState({ billing: b.id }); } };
-    });
-    var annual = s.billing === 'anual';
 
     var faqData = [
       { q: '¿Cómo recibo la música después de pagar?', a: 'Envías tu comprobante por WhatsApp al 946 393 104 y recibes acceso inmediato con un link permanente para descargar durante tu membresía.' },
-      { q: '¿Qué diferencia hay entre Premium y Exclusivo?', a: 'Premium incluye todos los géneros, ediciones premium, intros, mashups, puentes y open show, con 80 packs nuevos por semana los martes y viernes. Exclusivo suma ediciones privadas de editores top, acapellas Splice, actualización también los sábados y 90 packs por semana con bonus VIP.' },
+      { q: '¿Qué diferencia hay entre Premium y Exclusivo?', a: 'Premium incluye todos los géneros, ediciones premium, intros, mashups, puentes y open show, con 40 packs nuevos por semana los martes y viernes. Exclusivo suma ediciones privadas de editores top, acapellas Splice, actualización también los sábados y 50 packs por semana con bonus VIP.' },
       { q: '¿Qué días se actualiza la membresía?', a: 'Premium se actualiza martes y viernes. Exclusivo se actualiza martes, viernes y sábado.' },
       { q: '¿Qué medios de pago aceptan?', a: 'Yape, Plin, transferencia bancaria, PayPal, Takenos y Western Union.' },
       { q: '¿Puedo pagar desde fuera del Perú?', a: 'Sí. Puedes pagar con PayPal, Takenos o Western Union. Escríbenos y te enviamos los datos.' },
@@ -361,6 +356,7 @@ class Component extends DCLogic {
       },
       onPromoLeave: function () { if (self.promoEl) self.promoEl.style.transform = ''; },
       setAudio: function (el) { self.audio = el; if (el) { el.volume = s.vol; el.muted = s.muted; } },
+      topLabel: 'Top 10 de ' + ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'][new Date().getMonth()],
       tracks: tracks, trackCount: n, readyCount: ready.length,
       warmLabel: (function () { var w = Math.min(s.warmCount || 0, ready.length); return !ready.length ? '' : (w >= ready.length ? 'Listos para escuchar' : (w ? 'Preparando ' + w + ' de ' + ready.length : ready.length + ' con vista previa')); })(),
       warmDone: (s.warmCount || 0) >= ready.length && ready.length > 0,
@@ -390,9 +386,9 @@ class Component extends DCLogic {
       name: s.name,
       onName: function (e) { self.setState({ name: e.target.value }); },
       waLink: waLink,
-      waPremium: this.wa('Hola, quiero la Membresía Premium ' + (annual ? 'anual (S/100).' : 'mensual (S/15).') + who),
-      waExclusivo: this.wa('Hola, quiero la Membresía Exclusiva ' + (annual ? 'anual (S/150).' : 'mensual (S/20).') + who),
-      waPromo: this.wa('Hola, quiero información de la Promo Octubre 2026.' + who),
+      waPremium: this.wa('Hola, quiero la Membresía Premium de noviembre (S/12).' + who),
+      waExclusivo: this.wa('Hola, quiero la Membresía Exclusiva de noviembre (S/30).' + who),
+      waPromo: this.wa('Hola, quiero reservar la Preventa Anual 2027 (S/120).' + who),
       waDisco: this.wa('Hola, quiero cotizar un disco duro precargado.'),
       heroPlans: heroPlans,
       heroSummary: heroSummary,
@@ -427,20 +423,16 @@ class Component extends DCLogic {
         { k: 'Editores top del Perú', a: 'Uno o dos', b: 'Buscas a cada uno', c: '50+ en un solo lugar' },
         { k: 'Intros, mashups, puentes y open show', a: 'Incompleto', b: 'Por separado', c: 'Todo incluido' },
         { k: 'Acceso', a: 'Variable', b: 'Por compra', c: 'Inmediato, link permanente' },
-        { k: 'Costo', a: 'Variable', b: 'Pagas tema por tema', c: 'Desde S/15 al mes' }
+        { k: 'Costo', a: 'Variable', b: 'Pagas tema por tema', c: 'Desde S/12 al mes' }
       ],
-      billings: billings,
-      per: annual ? '/ año' : '/ mes',
-      pPrice: annual ? 'S/100' : 'S/15',
-      ePrice: annual ? 'S/150' : 'S/20',
-      pNote: annual ? 'Ahorras S/80 frente a 12 meses' : 'Acceso completo',
-      eNote: annual ? 'Ahorras S/90 frente a 12 meses' : 'Acceso completo',
-      premiumFeat: ['Todos los géneros: actuales, retro y virales', 'Ediciones premium', 'Intro, mashup, puentes y open show', 'Actualización martes y viernes', '80 packs nuevos cada semana'],
-      exclusiveFeat: ['Todo el plan Premium', 'Ediciones exclusivas y privadas de editores top', 'Audio de alta fidelidad', 'Acapellas Splice', 'Actualización martes, viernes y sábado', '90 packs nuevos cada semana + bonus VIP'],
-      promo: [
-        { k: 'Octubre', v: 'S/20' }, { k: 'Octubre y noviembre', v: 'S/30' }, { k: 'Octubre a diciembre', v: 'S/40' },
-        { k: 'Enero a octubre', v: 'S/25' }, { k: 'Anual 2026 (enero a diciembre)', v: 'S/50' }
-      ],
+      per: '/ mes',
+      pPrice: 'S/12',
+      ePrice: 'S/30',
+      pNote: 'Acceso al mes completo',
+      eNote: 'Acceso al mes completo',
+      premiumFeat: ['Todos los géneros: actuales, retro y virales', 'Ediciones premium', 'Intro, mashup, puentes y open show', 'Actualización martes y viernes', '40 packs nuevos cada semana + bonus VIP'],
+      exclusiveFeat: ['Todo el plan Premium', 'Ediciones exclusivas y privadas de editores top', 'Audio de alta fidelidad', 'Acapellas Splice', 'Actualización martes, viernes y sábado', '50 packs nuevos cada semana + bonus VIP'],
+      preventaFeat: ['Contenido exclusivo y privado', 'Incluye todo el plan Premium', 'Acceso a todos los meses del 2027', 'Ordenado por géneros y editores', 'Actualizaciones constantes'],
       payments: payments,
       setHm: function (el) { self.hmEl = el; },
       stickShow: !!s.stick && !s.ckBanner && !s.lb && !s.menuOpen,
@@ -448,7 +440,7 @@ class Component extends DCLogic {
       openLb: function () {
         var prem = s.plan === 'premium';
         self.lbReturn = document.activeElement;
-        self.setState({ lb: { src: prem ? 'assets/img/premium.jpg' : 'assets/img/exclusiva.jpg', alt: 'Flyer de la Membresía ' + (prem ? 'Premium' : 'Exclusiva') + ' de octubre 2026' } });
+        self.setState({ lb: { src: prem ? 'assets/img/premium.jpg' : 'assets/img/exclusiva.jpg', alt: 'Flyer de la Membresía ' + (prem ? 'Premium' : 'Exclusiva') + ' de noviembre 2026' } });
         setTimeout(function () { var b = document.querySelector('.lb-x'); if (b) b.focus(); }, 30);
       },
       closeLb: function () { self.setState({ lb: null }); if (self.lbReturn && self.lbReturn.focus) self.lbReturn.focus(); },
