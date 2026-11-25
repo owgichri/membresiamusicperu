@@ -1,82 +1,82 @@
 [
   {
-    "title": "Batidora X Salgo Pa La Calle",
-    "artist": "Daddy Yanke & Don Omar Ft Anuel",
-    "type": "Mashup Privados",
-    "bpm": "90",
-    "len": "1:30",
-    "enc": "previews/01-daddy-yanke-don-omar-ft-anuel-batidora-x.bin"
-  },
-  {
-    "title": "Saoco",
-    "artist": "Wisin Ft Daddy Yankee",
-    "type": "IOrg Intro Live",
-    "bpm": "96",
-    "len": "1:30",
-    "enc": "previews/02-wisin-ft-daddy-yankee-saoco.bin"
-  },
-  {
-    "title": "Tembleque x El Teke Teke",
-    "artist": "Crazy & Carlitos Wey",
-    "type": "Up Show",
-    "bpm": "95-141",
-    "len": "1:30",
-    "enc": "previews/03-crazy-carlitos-wey-tembleque-x-el-teke-t.bin"
-  },
-  {
-    "title": "Coqueta Remix",
-    "artist": "DJ Peligro Ft Towa",
-    "type": "Up Afro House",
-    "bpm": "97-130",
-    "len": "1:30",
-    "enc": "previews/04-dj-peligro-ft-towa-coqueta-remix.bin"
-  },
-  {
-    "title": "Movin To The Sun",
-    "artist": "Hugel",
-    "type": "INPro",
-    "bpm": "126",
-    "len": "1:30",
-    "enc": "previews/05-hugel-movin-to-the-sun.bin"
-  },
-  {
-    "title": "Saoco Private",
-    "artist": "Wisin Ft Daddy Yankee",
-    "type": "Up Afro House",
-    "bpm": "96-126",
-    "len": "1:30",
-    "enc": "previews/06-wisin-ft-daddy-yankee-saoco-private.bin"
-  },
-  {
-    "title": "Soy Una Gargola",
-    "artist": "Jowell y Randy",
-    "type": "Open Show Epic",
+    "title": "Cuchi Cuchi",
+    "artist": "Mayimbe",
+    "type": "INRgtN Ven Cuchi",
     "bpm": "94",
     "len": "1:30",
-    "enc": "previews/07-jowell-y-randy-soy-una-gargola.bin"
+    "enc": "previews/01-mayimbe-cuchi-cuchi.bin"
   },
   {
-    "title": "Gozando En La Habana",
-    "artist": "Charanga Habanera",
+    "title": "Tembleque",
+    "artist": "Hector John Eric",
+    "type": "Open Show",
+    "bpm": "95",
+    "len": "1:30",
+    "enc": "previews/02-hector-john-eric-tembleque.bin"
+  },
+  {
+    "title": "EoO Cocoteo GTA VI",
+    "artist": "Bad Bunny",
+    "type": "Open Show Epico",
+    "bpm": "102",
+    "len": "1:30",
+    "enc": "previews/03-bad-bunny-eoo-cocoteo-gta-vi.bin"
+  },
+  {
+    "title": "Solo Tu",
+    "artist": "Caribeños De Guadalupe",
+    "type": "Open Show Epic Trumpet 2026",
+    "bpm": "106",
+    "len": "1:30",
+    "enc": "previews/04-caribenos-de-guadalupe-solo-tu.bin"
+  },
+  {
+    "title": "Soy Peor x Farsante",
+    "artist": "Bad Bunny, Ozuna",
+    "type": "MashupCulo",
+    "bpm": "120",
+    "len": "1:30",
+    "enc": "previews/05-bad-bunny-ozuna-soy-peor-x-farsante.bin"
+  },
+  {
+    "title": "Jamaican Bam Bam x Enseñame A Soñar Mashup Show",
+    "artist": "",
+    "type": "Edición",
+    "bpm": "130",
+    "len": "1:30",
+    "enc": "previews/06-jamaican-bam-bam-x-ensename-a-sonar-mash.bin"
+  },
+  {
+    "title": "Soy Peor x Farsante",
+    "artist": "Bad Bunny, Ozuna",
+    "type": "MashupCulo",
+    "bpm": "120",
+    "len": "1:30",
+    "enc": "previews/07-bad-bunny-ozuna-soy-peor-x-farsante.bin"
+  },
+  {
+    "title": "Jamaican Bam Bam x Enseñame A Soñar Mashup Show",
+    "artist": "",
+    "type": "Edición",
+    "bpm": "130",
+    "len": "1:30",
+    "enc": "previews/08-jamaican-bam-bam-x-ensename-a-sonar-mash.bin"
+  },
+  {
+    "title": "Miami Bitch",
+    "artist": "Chuckie & LMFAO",
     "type": "Splice",
-    "bpm": "100",
+    "bpm": "128",
     "len": "1:30",
-    "enc": "previews/08-charanga-habanera-gozando-en-la-habana.bin"
+    "enc": "previews/09-chuckie-lmfao-miami-bitch.bin"
   },
   {
-    "title": "La Player",
-    "artist": "Zion & Lennox",
-    "type": "Splice Exclusivo",
-    "bpm": "94",
-    "len": "1:30",
-    "enc": "previews/09-zion-lennox-la-player.bin"
-  },
-  {
-    "title": "Shaky Shaky",
-    "artist": "Daddy Yankee",
-    "type": "Splice",
-    "bpm": "92",
-    "len": "1:30",
-    "enc": "previews/10-daddy-yankee-shaky-shaky.bin"
+    "title": "Teke Teke x Metele Caliente",
+    "artist": "RKT",
+    "type": "(Acapella Out)",
+    "bpm": "102",
+    "len": "1:29",
+    "enc": "previews/10-rkt-teke-teke-x-metele-caliente.bin"
   }
 ]
