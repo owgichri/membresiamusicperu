@@ -54,3 +54,8 @@ Los pixeles solo se activan si el visitante acepta las cookies de publicidad.
 1. Python 3 desde python.org (marca "Add Python to PATH").
 2. ffmpeg: en una terminal `winget install ffmpeg` y reinicia el PC.
 3. En una terminal: `pip install cryptography`.
+
+## Slider de promociones (sección 4)
+
+- La promo del mes aparece sola cuando subes **`assets/img/promo-noviembre.jpg`** (o `.png`). Cambia cada 5 segundos con la Preventa 2027.
+- Para quitarla, borra ese archivo en GitHub. La Preventa queda sola, sin slider.

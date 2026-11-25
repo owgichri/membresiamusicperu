@@ -85,6 +85,15 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #191b
 .pl-right{position:relative;min-height:560px}
 .pl-right .pl-card{position:absolute;inset:0}
 .pl-list{flex:1 1 auto;min-height:0;overflow-y:auto}
+.ps-stack{display:grid;border-radius:22px;box-shadow:0 24px 50px rgba(25,27,48,.22)}
+.ps-slide{grid-area:1/1;display:block;width:100%;border-radius:22px;opacity:0;transform:scale(1.03);transition:opacity .7s ease,transform .9s cubic-bezier(.2,.8,.2,1);pointer-events:none;align-self:center}
+.ps-slide.on{opacity:1;transform:none;pointer-events:auto}
+.ps-dots{display:flex;justify-content:center;gap:4px;margin:-4px 0 -6px}
+.ps-dot{width:28px;height:28px;border:0;background:transparent;padding:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.ps-dot::before{content:"";width:8px;height:8px;border-radius:999px;background:#c9ccd4;transition:width .3s ease,background .3s ease}
+.ps-dot.on::before{width:24px;background:#ff1f1f}
+.ps-dot:focus-visible{outline:2px solid #191b30;outline-offset:2px;border-radius:999px}
+@media (prefers-reduced-motion:reduce){.ps-slide{transition:none;transform:none}}
 .promo-tilt{position:relative;border-radius:22px;transition:transform .2s ease-out;will-change:transform}
 .promo-pre{opacity:0}
 .promo-in{animation:promoIn .9s cubic-bezier(.2,.8,.2,1) backwards}
@@ -399,12 +408,15 @@ footer{padding-bottom:110px !important}
 <div class="pl-grid">
 
 <div class="pl-left">
-<div class="promo-tilt {{promoClass}}" ref="{{setPromo}}" onMouseMove="{{onPromoMove}}" onMouseLeave="{{onPromoLeave}}">
-<img src="assets/img/preventa-2027.jpg" alt="Preventa Membresía Anual 2027: S/120 (después S/160), incluye backup actualizado hasta el 2026" style="display: block; width: 100%; border-radius: 22px; box-shadow: 0 24px 50px rgba(25,27,48,.22)">
-<span class="promo-shine" aria-hidden="true"></span>
-<span class="promo-chip" style="position: absolute; top: 14px; left: 14px; display: inline-flex; align-items: center; gap: 8px; background: #ffffff; color: #191b30; font-size: 12px; font-weight: 700; padding: 7px 12px; border-radius: 999px; box-shadow: 0 8px 20px rgba(0,0,0,.25)"><span class="promo-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #ff1f1f"></span>Preventa Anual 2027 · cupos limitados</span>
+<div class="promo-tilt {{promoClass}}" ref="{{setPromo}}" onMouseMove="{{onPromoMove}}" onMouseEnter="{{onPromoEnter}}" onMouseLeave="{{onPromoLeave}}" onTouchstart="{{onPsTouch}}" onTouchend="{{onPsTouchEnd}}" aria-roledescription="carrusel" aria-label="Promociones vigentes">
+<div class="ps-stack">
+<sc-for list="{{promoSlides}}" as="p"><img src="{{p.src}}" alt="{{p.alt}}" aria-hidden="{{p.hidden}}" class="{{p.cls}}"></sc-for>
 </div>
-<a href="{{waPromo}}" class="btn-red" style="align-self: stretch; text-align: center; font-size: 15px; font-weight: 600; padding: 14px 22px; border-radius: 999px; min-height: 44px">Aprovechar la preventa 2027</a>
+<span class="promo-shine" aria-hidden="true"></span>
+<span class="promo-chip" aria-live="polite" style="position: absolute; top: 14px; left: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 8px; background: #ffffff; color: #191b30; font-size: 12px; font-weight: 700; padding: 7px 12px; border-radius: 999px; box-shadow: 0 8px 20px rgba(0,0,0,.25)"><span class="promo-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #ff1f1f"></span>{{promoChip}}</span>
+</div>
+<sc-if value="{{promoMulti}}"><div class="ps-dots"><sc-for list="{{promoSlides}}" as="p"><button type="button" class="{{p.dot}}" aria-current="{{p.cur}}" aria-label="Ver {{p.name}}" onClick="{{p.go}}"></button></sc-for></div></sc-if>
+<a href="{{promoCtaHref}}" class="btn-red" style="align-self: stretch; text-align: center; font-size: 15px; font-weight: 600; padding: 14px 22px; border-radius: 999px; min-height: 44px">{{promoCtaText}}</a>
 </div>
 
 <div class="pl-right">

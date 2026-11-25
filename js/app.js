@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { plan: 'exclusivo', role: 0, cat: 0, billing: 'mensual', t: 0, faq: 0, disk: '1tb', menuOpen: false, lb: null, stick: false, ckBanner: false, ckCfg: false, ckPolicy: false, ckAna: false, ckAds: false, name: '', cur: 0, playing: false, loading: false, promoIn: false, time: 0, dur: 0, vol: 0.8, muted: false, shuffle: false, repeat: false, notice: '' };
+    this.state = { plan: 'exclusivo', role: 0, cat: 0, billing: 'mensual', t: 0, faq: 0, disk: '1tb', menuOpen: false, lb: null, stick: false, ckBanner: false, ckCfg: false, ckPolicy: false, ckAna: false, ckAds: false, name: '', cur: 0, playing: false, loading: false, promoIn: false, ps: 0, psNov: '', time: 0, dur: 0, vol: 0.8, muted: false, shuffle: false, repeat: false, notice: '' };
   }
   goT(i, dir) {
     this.setState({ t: i, tDir: dir });
@@ -41,6 +41,7 @@ class Component extends DCLogic {
     };
     next();
   }
+  psGo(i) { this.psStart = Date.now(); this.setState({ ps: i }); }
   componentDidMount() {
     var selfP = this;
     var go = function () { selfP.startPreload(); };
@@ -60,6 +61,22 @@ class Component extends DCLogic {
       if (selfT.reduced || selfT.state.tPaused) { selfT.tStart = Date.now(); return; }
       if (Date.now() - selfT.tStart >= 7000) selfT.goT((selfT.state.t + 1) % (selfT.tCount || 3), 'next');
     }, 250);
+    // Slider de promos: la promo del mes aparece sola cuando existe assets/img/promo-noviembre.jpg (o .png).
+    var selfPs = this;
+    var tryImg = function (list) {
+      if (!list.length) return;
+      var im = new Image();
+      im.onload = function () { selfPs.setState({ psNov: list[0] }); };
+      im.onerror = function () { tryImg(list.slice(1)); };
+      im.src = list[0];
+    };
+    tryImg(['assets/img/promo-noviembre.jpg', 'assets/img/promo-noviembre.png']);
+    this.psStart = Date.now();
+    this.psTimer = setInterval(function () {
+      var n = selfPs.psList ? selfPs.psList.length : 1;
+      if (n < 2 || selfPs.reduced || selfPs.psHover || selfPs.state.lb || document.hidden) { selfPs.psStart = Date.now(); return; }
+      if (Date.now() - selfPs.psStart >= 5000) selfPs.psGo((selfPs.state.ps + 1) % n);
+    }, 250);
     var self = this;
     this.cache = {}; this.loadedIdx = -1;
     this.reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -77,6 +94,7 @@ class Component extends DCLogic {
   componentWillUnmount() {
     if (this.hmIo) this.hmIo.disconnect();
     if (this.tTimer) clearInterval(this.tTimer);
+    if (this.psTimer) clearInterval(this.psTimer);
     if (this.io) this.io.disconnect();
     var c = this.cache || {};
     Object.keys(c).forEach(function (k) { if (typeof c[k] === 'string') URL.revokeObjectURL(c[k]); });
@@ -194,6 +212,15 @@ class Component extends DCLogic {
     var self = this;
     var who = s.name && s.name.trim() ? ' Soy ' + s.name.trim() + '.' : '';
     var planName = s.plan === 'premium' ? 'Premium' : 'Exclusiva';
+    var psList = [];
+    if (s.psNov) psList.push({ name: 'Promo de noviembre', src: s.psNov, alt: 'Promoción de noviembre 2026 de DJ Music Perú', chip: 'Promo de noviembre · por tiempo limitado', cta: 'Aprovechar la promo de noviembre', href: this.wa('Hola, quiero la promo de noviembre.' + who) });
+    psList.push({ name: 'Preventa Anual 2027', src: 'assets/img/preventa-2027.jpg', alt: 'Preventa Membresía Anual 2027: S/120 (después S/160), incluye backup actualizado hasta el 2026', chip: 'Preventa Anual 2027 · cupos limitados', cta: 'Aprovechar la preventa 2027', href: this.wa('Hola, quiero reservar la Preventa Anual 2027 (S/120).' + who) });
+    this.psList = psList;
+    var psCur = s.ps < psList.length ? s.ps : 0;
+    var psSlides = psList.map(function (p, i) {
+      return { src: p.src, alt: p.alt, name: p.name, cls: 'ps-slide' + (i === psCur ? ' on' : ''), hidden: i === psCur ? 'false' : 'true',
+        dot: 'ps-dot' + (i === psCur ? ' on' : ''), cur: i === psCur ? 'true' : 'false', go: function () { self.psGo(i); } };
+    });
     var waLink = this.wa('Hola DJ Music Perú, quiero la Membresía ' + planName + '.' + who);
 
     var heroPlans = [
@@ -354,7 +381,17 @@ class Component extends DCLogic {
         var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
         el.style.transform = 'perspective(1000px) rotateY(' + (x * 8).toFixed(2) + 'deg) rotateX(' + (-y * 8).toFixed(2) + 'deg) scale(1.02)';
       },
-      onPromoLeave: function () { if (self.promoEl) self.promoEl.style.transform = ''; },
+      onPromoLeave: function () { self.psHover = false; if (self.promoEl) self.promoEl.style.transform = ''; },
+      onPromoEnter: function () { self.psHover = true; },
+      onPsTouch: function (e) { self.psX = e.touches && e.touches[0] ? e.touches[0].clientX : null; self.psStart = Date.now(); },
+      onPsTouchEnd: function (e) {
+        var t = e.changedTouches && e.changedTouches[0]; var n = psList.length;
+        if (self.psX == null || !t || n < 2) return;
+        var dx = t.clientX - self.psX; self.psX = null;
+        if (Math.abs(dx) > 40) self.psGo((psCur + (dx < 0 ? 1 : n - 1)) % n);
+      },
+      promoSlides: psSlides, promoMulti: psList.length > 1,
+      promoChip: psList[psCur].chip, promoCtaText: psList[psCur].cta, promoCtaHref: psList[psCur].href,
       setAudio: function (el) { self.audio = el; if (el) { el.volume = s.vol; el.muted = s.muted; } },
       topLabel: 'Top 10 de ' + ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'][new Date().getMonth()],
       tracks: tracks, trackCount: n, readyCount: ready.length,
